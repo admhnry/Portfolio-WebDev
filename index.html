@@ -42,10 +42,14 @@
         .project-card:hover{ transform:translateY(-6px); border-color:var(--accent); box-shadow:0 12px 30px rgba(0,255,136,0.06); }
         .project-image{ width:100%; height:200px; background:linear-gradient(180deg,#111,#161616); display:flex; align-items:center; justify-content:center; color:var(--text-secondary); font-size:1rem; border-bottom:1px solid var(--border); }
         .project-content{ padding:1.25rem; }
-        .project-actions{ display:flex; gap:.8rem; margin-top:1rem; }
-        .btn{ padding:.55rem .9rem; border-radius:6px; text-decoration:none; font-weight:600; border:1px solid var(--border); display:inline-block; }
+        .project-actions{ display:flex; gap:.8rem; margin-top:1rem; flex-wrap:wrap; }
+        .btn{ padding:.55rem .9rem; border-radius:6px; text-decoration:none; font-weight:600; border:1px solid var(--border); display:inline-block; transition:all .25s; font-size:.9rem; }
         .btn-primary{ background:var(--accent); color:#081; border-color:var(--accent); }
+        .btn-primary:hover{ background:#00cc6a; }
         .btn-ghost{ background:transparent; color:var(--text-primary); border:1px solid var(--border); }
+        .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
+        .btn-secondary{ background:var(--bg-tertiary); color:var(--accent); border:1px solid var(--accent); }
+        .btn-secondary:hover{ background:var(--accent); color:var(--bg-primary); }
         .tech-stack{ display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.8rem; }
         .tech-tag{ background:var(--bg-tertiary); color:var(--accent); padding:.25rem .6rem; border-radius:4px; font-size:.82rem; border:1px solid var(--border); }
         /* Testimonials */
@@ -60,6 +64,21 @@
         footer{ background:var(--bg-primary); padding:1.6rem 0; text-align:center; border-top:1px solid var(--border); color:var(--text-secondary); }
         @media (max-width:768px){ .about-content{ grid-template-columns:1fr; } .hero h1{ font-size:2rem; } section{ padding:3rem 0; } }
         html{ scroll-behavior:smooth; }
+        
+        /* PDF Badge */
+        .pdf-badge{ 
+            display:inline-flex; 
+            align-items:center; 
+            gap:.4rem; 
+            background:rgba(0,255,136,0.1); 
+            color:var(--accent); 
+            padding:.3rem .7rem; 
+            border-radius:4px; 
+            font-size:.8rem; 
+            font-weight:600; 
+            margin-top:.6rem;
+            border:1px solid rgba(0,255,136,0.2);
+        }
     </style>
 </head>
 <body>
@@ -153,7 +172,6 @@
                 <!-- Project 1 -->
                 <div class="project-card">
                     <div class="project-image" role="img" aria-label="Football Ticketing screenshot">
-                        <!-- simple SVG placeholder; replace with real screenshot: <img src="/assets/football-ticketing.png" alt="Football Ticketing"> -->
                         <svg width="60%" height="60%" viewBox="0 0 100 60" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
                             <rect width="100" height="60" rx="4" fill="#0f0f0f" stroke="#222"/>
                             <text x="50" y="33" font-size="9" fill="#9eeac6" text-anchor="middle">Football Ticketing</text>
@@ -163,6 +181,9 @@
                         <h3 style="color:var(--accent); margin-bottom:.25rem;">Football Ticketing System</h3>
                         <div class="project-subtitle" style="color:var(--text-secondary); font-size:.95rem;">Academic Capstone Project</div>
                         <p style="color:var(--text-secondary); margin-top:.6rem;">A ticketing platform with QR-code ticket validation, email notifications, and admin analytics for purchases and login history.</p>
+                        <div class="pdf-badge">
+                            📄 Detailed screenshots available in portfolio PDF
+                        </div>
                         <div class="tech-stack">
                             <span class="tech-tag">PHP</span>
                             <span class="tech-tag">MySQL</span>
@@ -170,9 +191,7 @@
                             <span class="tech-tag">Email</span>
                         </div>
                         <div class="project-actions">
-                            <!-- Replace hrefs with your live/demo links or GitHub repo URLs -->
-                            <a class="btn btn-primary" href="#" target="_blank" rel="noopener">Live Demo</a>
-                            <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">View Code</a>
+                            <a class="btn btn-secondary" href="portfolio-details.pdf" target="_blank" rel="noopener">📥 View Full Details (PDF)</a>
                         </div>
                     </div>
                 </div>
@@ -189,22 +208,31 @@
                         <h3 style="color:var(--accent); margin-bottom:.25rem;">AE SETIA Company Website</h3>
                         <div class="project-subtitle" style="color:var(--text-secondary); font-size:.95rem;">Freelance Project</div>
                         <p style="color:var(--text-secondary); margin-top:.6rem;">Multi-page corporate site showcasing company profile and services. Developed with PHP, MySQL and a simple CMS for content edits.</p>
+                        <div class="pdf-badge">
+                            📄 Detailed screenshots available in portfolio PDF
+                        </div>
                         <div class="tech-stack">
                             <span class="tech-tag">PHP</span>
                             <span class="tech-tag">MySQL</span>
                             <span class="tech-tag">Responsive</span>
                         </div>
                         <div class="project-actions">
-                            <a class="btn btn-primary" href="#" target="_blank" rel="noopener">View Live</a>
-                            <a class="btn btn-ghost" href="#" target="_blank" rel="noopener">Repository</a>
+                            <a class="btn btn-secondary" href="portfolio-details.pdf" target="_blank" rel="noopener">📥 View Full Details (PDF)</a>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Quick note for client convenience -->
-            <p style="color:var(--text-secondary); font-size:.9rem; margin-top:1rem;">Tip: Replace the demo/repo "#" links with your actual live URLs or GitHub repositories. You can also place real screenshots in <code>/assets/</code> and swap the SVG placeholders for <code>&lt;img&gt;</code> tags.</p>
+            <!-- Note about PDF -->
+            <div style="background:var(--bg-secondary); padding:1.5rem; border-radius:8px; border:1px solid var(--border); margin-top:2rem; text-align:center;">
+                <p style="color:var(--text-secondary); font-size:1rem; margin-bottom:1rem;">
+                    📑 <strong style="color:var(--accent);">Want to see detailed screenshots?</strong> Download my complete portfolio PDF with full project walkthroughs, multiple screenshots, and technical details.
+                </p>
+                <a class="btn btn-primary" href="portfolio-details.pdf" download style="font-size:1rem; padding:.8rem 2rem;">
+                    📥 Download Complete Portfolio (PDF)
+                </a>
+            </div>
         </div>
     </section>
 
@@ -222,7 +250,6 @@
                     <div class="meta">— Nor Azlina Ali (Ts), University Project Supervisor</div>
                 </div>
             </div>
-            <p style="color:var(--text-secondary); font-size:.9rem; margin-top:1rem;">If you don't yet have client quotes, replace these with short case-study blurbs or ask for permission to use short feedback from previous clients.</p>
         </div>
     </section>
 
