@@ -1,580 +1,509 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adam Henri - Software Engineer</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root{
-      --bg-primary:#0a0a0a;
-      --bg-secondary:#151515;
-      --bg-tertiary:#1a1a1a;
-      --accent:#00ff88;
-      --accent-dim:#00cc6a;
-      --text-primary:#ffffff;
-      --text-secondary:#a0a0a0;
-      --border:#2a2a2a;
-    }
-    body{
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background:var(--bg-primary);
-      color:var(--text-primary);
-      line-height:1.6;
-      overflow-x:hidden;
-    }
-    nav{
-      position:fixed;
-      top:0;
-      width:100%;
-      background:rgba(10,10,10,0.95);
-      backdrop-filter: blur(10px);
-      border-bottom:1px solid var(--border);
-      padding:1.2rem 0;
-      z-index:1000;
-    }
-    .container{
-      max-width:1200px;
-      margin:0 auto;
-      padding:0 2rem;
-      display: flex; /* Added for nav layout */
-      justify-content: space-between; /* Added for nav layout */
-      align-items: center; /* Added for nav layout */
-    }
-    .logo{
-      font-size:1.5rem;
-      font-weight:700;
-      color:var(--accent);
-      text-decoration:none;
-    }
-    .nav-links{
-      display:flex;
-      gap:1.6rem;
-      list-style:none;
-    }
-    .nav-links a{
-      color:var(--text-secondary);
-      text-decoration:none;
-      transition:color .25s;
-    }
-    .nav-links a:hover{
-      color:var(--accent);
-    }
-    section{ padding:6rem 0; }
-    .hero{
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      padding-top:80px;
-      position:relative;
-      text-align: center; /* Centered hero content on all screens */
-    }
-    .hero .container{
-      justify-content: center; /* Center hero content */
-      flex-direction: column; /* Stack hero content */
-    }
-    .hero::before{
-      content:'';
-      position:absolute;
-      inset:0;
-      background: radial-gradient(circle at 20% 50%, rgba(0,255,136,0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 50%, rgba(0,255,136,0.04) 0%, transparent 50%);
-      pointer-events:none;
-    }
-    .hero h1{
-      font-size:3.2rem;
-      margin-bottom:.8rem;
-      background:linear-gradient(135deg,var(--text-primary) 0%, var(--accent) 100%);
-      -webkit-background-clip:text;
-      -webkit-text-fill-color:transparent;
-    }
-    .subtitle{
-      font-size:1.2rem;
-      color:var(--text-secondary);
-      margin-bottom:1.2rem;
-    }
-    p.lead{
-      font-size:1.05rem;
-      color:var(--text-secondary);
-      max-width:700px;
-      margin: 0 auto 1.8rem auto; /* Centered lead text */
-    }
-    .cta-button{
-      display:inline-block;
-      padding:0.9rem 2rem;
-      background:var(--accent);
-      color:var(--bg-primary);
-      text-decoration:none;
-      border-radius:6px;
-      font-weight:600;
-      border:2px solid var(--accent);
-      transition:all .25s;
-    }
-    .cta-button:hover{
-      background:transparent;
-      color:var(--accent);
-      transform:translateY(-3px);
-    }
-    .section-title{
-      font-size:2.2rem;
-      margin-bottom:2rem;
-      text-align:center;
-      position:relative;
-    }
-    .section-title::after{
-      content:'';
-      display:block;
-      width:60px;
-      height:3px;
-      background:var(--accent);
-      margin:1rem auto 0;
-    }
-    .about{ background:var(--bg-secondary); }
-    .about-content{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:2.5rem;
-      align-items:center;
-    }
-    .credentials{
-      background:var(--bg-tertiary);
-      padding:1.6rem;
-      border-radius:8px;
-      border:1px solid var(--border);
-    }
-    .credential-item{
-      margin-bottom:1.2rem;
-      padding-bottom:1rem;
-      border-bottom:1px solid var(--border);
-    }
-    .credential-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0;}
-    .credential-item h3{
-      color:var(--accent);
-      margin-bottom:.4rem;
-      font-size:1.05rem;
-    }
-    /* Services */
-    .services-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-      gap:1rem;
-      margin-top:1.5rem;
-    }
-    .service-card{
-      background:var(--bg-tertiary);
-      padding:1rem;
-      border-radius:8px;
-      border:1px solid var(--border);
-      text-align:center;
-    }
-    .service-card h4{
-      color:var(--accent);
-      margin-bottom:.5rem;
-    }
-    /* Projects */
-    .projects-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); /* Adjusted min-width for mobile fit */
-      gap:1.2rem;
-    }
-    .project-card{
-      background:var(--bg-secondary);
-      border:1px solid var(--border);
-      border-radius:8px;
-      overflow:hidden;
-      transition:all .25s;
-    }
-    .project-card:hover{
-      transform:translateY(-6px);
-      border-color:var(--accent);
-      box-shadow:0 12px 30px rgba(0,255,136,0.06);
-    }
-    .project-image{
-      width:100%;
-      height:200px;
-      background:linear-gradient(180deg,#111,#161616);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:var(--text-secondary);
-      font-size:1rem;
-      border-bottom:1px solid var(--border);
-    }
-    .project-content{ padding:1.25rem; }
-    .project-actions{
-      display:flex;
-      gap:.8rem;
-      margin-top:1rem;
-      flex-wrap:wrap;
-      justify-content: center; /* Center buttons on mobile */
-    }
-    .btn{
-      padding:.55rem .9rem;
-      border-radius:6px;
-      text-decoration:none;
-      font-weight:600;
-      border:1px solid var(--border);
-      display:inline-block;
-      transition:all .25s;
-      font-size:.9rem;
-    }
-    .btn-primary{
-      background:var(--accent);
-      color:#081;
-      border-color:var(--accent);
-    }
-    .btn-primary:hover{ background:#00cc6a; }
-    .btn-ghost{
-      background:transparent;
-      color:var(--text-primary);
-      border:1px solid var(--border);
-    }
-    .btn-ghost:hover{
-      border-color:var(--accent);
-      color:var(--accent);
-    }
-    .btn-secondary{
-      background:var(--bg-tertiary);
-      color:var(--accent);
-      border:1px solid var(--accent);
-    }
-    .btn-secondary:hover{
-      background:var(--accent);
-      color:var(--bg-primary);
-    }
-    .tech-stack{
-      display:flex;
-      flex-wrap:wrap;
-      gap:.4rem;
-      margin-top:.8rem;
-    }
-    .tech-tag{
-      background:var(--bg-tertiary);
-      color:var(--accent);
-      padding:.25rem .6rem;
-      border-radius:4px;
-      font-size:.82rem;
-      border:1px solid var(--border);
-    }
-    /* Testimonials */
-    .testimonials-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:1rem;
-      margin-top:1.5rem;
-    }
-    .testimonial{
-      background:var(--bg-tertiary);
-      padding:1rem;
-      border-radius:8px;
-      border:1px solid var(--border);
-      font-size:.95rem;
-    }
-    .testimonial .meta{
-      color:var(--text-secondary);
-      font-size:.85rem;
-      margin-top:.6rem;
-    }
-    /* Contact */
-    .contact{ background:var(--bg-secondary); }
-    .contact-content{
-      max-width:700px;
-      margin:0 auto;
-      text-align:center;
-    }
-    .contact-info{
-      display:grid;
-      gap:1rem;
-      margin-top:1.2rem;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); /* Adjusted for better mobile contact layout */
-    }
-    .contact-item{
-      background:var(--bg-tertiary);
-      padding:1rem;
-      border-radius:8px;
-      border:1px solid var(--border);
-    }
-    footer{
-      background:var(--bg-primary);
-      padding:1.6rem 0;
-      text-align:center;
-      border-top:1px solid var(--border);
-      color:var(--text-secondary);
-    }
-    html{ scroll-behavior:smooth; }
-    /* PDF Badge */
-    .pdf-badge{
-      display:inline-flex;
-      align-items:center;
-      gap:.4rem;
-      background:rgba(0,255,136,0.1);
-      color:var(--accent);
-      padding:.3rem .7rem;
-      border-radius:4px;
-      font-size:.8rem;
-      font-weight:600;
-      margin-top:.6rem;
-      border:1px solid rgba(0,255,136,0.2);
-    }
-
-    /* -------------------------------------- */
-    /* MOBILE-SPECIFIC STYLES (Max 768px) */
-    /* -------------------------------------- */
-    @media (max-width: 768px) {
-      .container{ padding: 0 1rem; } /* Reduced horizontal padding */
-      
-      nav .container { 
-        flex-direction: column; /* Stack logo and links */
-        text-align: center;
-      }
-      .logo { margin-bottom: 0.8rem; }
-      .nav-links{
-        display: none; /* Hide for a static, basic mobile view. Use JS to toggle for a real menu. */
-        flex-direction: column;
-        gap: 0.8rem;
-        width: 100%;
-        padding: 0.5rem 0;
-      }
-
-      section{ padding:4rem 0; } /* Reduced vertical padding */
-      
-      .hero{ 
-        min-height: 80vh; 
-        padding-top: 100px; /* More space for fixed nav */
-      }
-      .hero h1{ font-size:2.5rem; } /* Smaller hero heading */
-      .subtitle{ font-size:1.1rem; }
-      .section-title{ font-size:1.8rem; } /* Smaller section headings */
-
-      .about-content{ 
-        grid-template-columns:1fr; /* Stack about content */
-        gap: 2rem;
-      }
-      
-      .projects-grid{
-        grid-template-columns: 1fr; /* Single column for projects */
-      }
-
-      .contact-info{
-        grid-template-columns: 1fr; /* Single column for contact info */
-      }
-    
-      .project-content {
-        text-align: center; /* Center project content */
-      }
-      .tech-stack {
-        justify-content: center; /* Center tech tags */
-      }
-    }
-
-    /* Adjustments for the original (non-mobile) container logic */
-    .hero .container, .projects .container, .testimonials .container, .contact .container {
-      /* Override flex for sections that shouldn't be row-aligned like the nav */
-      display: block; 
-    }
-    /* Re-apply flex to sections that need it for internal layouts */
-    .nav .container { display: flex; }
-    .hero .container { display: flex; } /* Retained for vertical centering */
-
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adam Henri - Software Engineer</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{
+      --bg-primary:#0a0a0a;
+      --bg-secondary:#151515;
+      --bg-tertiary:#1a1a1a;
+      --accent:#00ff88;
+      --accent-dim:#00cc6a;
+      --text-primary:#ffffff;
+      --text-secondary:#a0a0a0;
+      --border:#2a2a2a;
+    }
+    body{
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:var(--bg-primary);
+      color:var(--text-primary);
+      line-height:1.6;
+      overflow-x:hidden;
+    }
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      background:rgba(10,10,10,0.95);
+      backdrop-filter: blur(10px);
+      border-bottom:1px solid var(--border);
+      padding:1.2rem 0;
+      z-index:1000;
+    }
+    .container{
+      max-width:1200px;
+      margin:0 auto;
+      padding:0 2rem;
+    }
+    .logo{
+      font-size:1.5rem;
+      font-weight:700;
+      color:var(--accent);
+      text-decoration:none;
+    }
+    .nav-links{
+      display:flex;
+      gap:1.6rem;
+      list-style:none;
+    }
+    .nav-links a{
+      color:var(--text-secondary);
+      text-decoration:none;
+      transition:color .25s;
+    }
+    .nav-links a:hover{
+      color:var(--accent);
+    }
+    section{ padding:6rem 0; }
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      padding-top:80px;
+      position:relative;
+    }
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 20% 50%, rgba(0,255,136,0.08) 0%, transparent 50%),
+                  radial-gradient(circle at 80% 50%, rgba(0,255,136,0.04) 0%, transparent 50%);
+      pointer-events:none;
+    }
+    .hero h1{
+      font-size:3.2rem;
+      margin-bottom:.8rem;
+      background:linear-gradient(135deg,var(--text-primary) 0%, var(--accent) 100%);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+    }
+    .subtitle{
+      font-size:1.2rem;
+      color:var(--text-secondary);
+      margin-bottom:1.2rem;
+    }
+    p.lead{
+      font-size:1.05rem;
+      color:var(--text-secondary);
+      max-width:700px;
+      margin-bottom:1.8rem;
+    }
+    .cta-button{
+      display:inline-block;
+      padding:0.9rem 2rem;
+      background:var(--accent);
+      color:var(--bg-primary);
+      text-decoration:none;
+      border-radius:6px;
+      font-weight:600;
+      border:2px solid var(--accent);
+      transition:all .25s;
+    }
+    .cta-button:hover{
+      background:transparent;
+      color:var(--accent);
+      transform:translateY(-3px);
+    }
+    .section-title{
+      font-size:2.2rem;
+      margin-bottom:2rem;
+      text-align:center;
+      position:relative;
+    }
+    .section-title::after{
+      content:'';
+      display:block;
+      width:60px;
+      height:3px;
+      background:var(--accent);
+      margin:1rem auto 0;
+    }
+    .about{ background:var(--bg-secondary); }
+    .about-content{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:2.5rem;
+      align-items:center;
+    }
+    .credentials{
+      background:var(--bg-tertiary);
+      padding:1.6rem;
+      border-radius:8px;
+      border:1px solid var(--border);
+    }
+    .credential-item{
+      margin-bottom:1.2rem;
+      padding-bottom:1rem;
+      border-bottom:1px solid var(--border);
+    }
+    .credential-item h3{
+      color:var(--accent);
+      margin-bottom:.4rem;
+      font-size:1.05rem;
+    }
+    /* Services */
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:1rem;
+      margin-top:1.5rem;
+    }
+    .service-card{
+      background:var(--bg-tertiary);
+      padding:1rem;
+      border-radius:8px;
+      border:1px solid var(--border);
+      text-align:center;
+    }
+    .service-card h4{
+      color:var(--accent);
+      margin-bottom:.5rem;
+    }
+    /* Projects */
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:1.2rem;
+    }
+    .project-card{
+      background:var(--bg-secondary);
+      border:1px solid var(--border);
+      border-radius:8px;
+      overflow:hidden;
+      transition:all .25s;
+    }
+    .project-card:hover{
+      transform:translateY(-6px);
+      border-color:var(--accent);
+      box-shadow:0 12px 30px rgba(0,255,136,0.06);
+    }
+    .project-image{
+      width:100%;
+      height:200px;
+      background:linear-gradient(180deg,#111,#161616);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:var(--text-secondary);
+      font-size:1rem;
+      border-bottom:1px solid var(--border);
+    }
+    .project-content{ padding:1.25rem; }
+    .project-actions{
+      display:flex;
+      gap:.8rem;
+      margin-top:1rem;
+      flex-wrap:wrap;
+    }
+    .btn{
+      padding:.55rem .9rem;
+      border-radius:6px;
+      text-decoration:none;
+      font-weight:600;
+      border:1px solid var(--border);
+      display:inline-block;
+      transition:all .25s;
+      font-size:.9rem;
+    }
+    .btn-primary{
+      background:var(--accent);
+      color:#081;
+      border-color:var(--accent);
+    }
+    .btn-primary:hover{ background:#00cc6a; }
+    .btn-ghost{
+      background:transparent;
+      color:var(--text-primary);
+      border:1px solid var(--border);
+    }
+    .btn-ghost:hover{
+      border-color:var(--accent);
+      color:var(--accent);
+    }
+    .btn-secondary{
+      background:var(--bg-tertiary);
+      color:var(--accent);
+      border:1px solid var(--accent);
+    }
+    .btn-secondary:hover{
+      background:var(--accent);
+      color:var(--bg-primary);
+    }
+    .tech-stack{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+      margin-top:.8rem;
+    }
+    .tech-tag{
+      background:var(--bg-tertiary);
+      color:var(--accent);
+      padding:.25rem .6rem;
+      border-radius:4px;
+      font-size:.82rem;
+      border:1px solid var(--border);
+    }
+    /* Testimonials */
+    .testimonials-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1rem;
+      margin-top:1.5rem;
+    }
+    .testimonial{
+      background:var(--bg-tertiary);
+      padding:1rem;
+      border-radius:8px;
+      border:1px solid var(--border);
+      font-size:.95rem;
+    }
+    .testimonial .meta{
+      color:var(--text-secondary);
+      font-size:.85rem;
+      margin-top:.6rem;
+    }
+    /* Contact */
+    .contact{ background:var(--bg-secondary); }
+    .contact-content{
+      max-width:700px;
+      margin:0 auto;
+      text-align:center;
+    }
+    .contact-info{
+      display:grid;
+      gap:1rem;
+      margin-top:1.2rem;
+    }
+    .contact-item{
+      background:var(--bg-tertiary);
+      padding:1rem;
+      border-radius:8px;
+      border:1px solid var(--border);
+    }
+    footer{
+      background:var(--bg-primary);
+      padding:1.6rem 0;
+      text-align:center;
+      border-top:1px solid var(--border);
+      color:var(--text-secondary);
+    }
+    @media (max-width:768px){
+      .about-content{ grid-template-columns:1fr; }
+      .hero h1{ font-size:2rem; }
+      section{ padding:3rem 0; }
+    }
+    html{ scroll-behavior:smooth; }
+    /* PDF Badge */
+    .pdf-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:.4rem;
+      background:rgba(0,255,136,0.1);
+      color:var(--accent);
+      padding:.3rem .7rem;
+      border-radius:4px;
+      font-size:.8rem;
+      font-weight:600;
+      margin-top:.6rem;
+      border:1px solid rgba(0,255,136,0.2);
+    }
+  </style>
 </head>
 <body>
-  <nav>
-    <div class="container">
-      <a href="#" class="logo">AH</a>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#services">Services</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#testimonials">Testimonials</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-  </nav>
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">AH</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <section class="hero">
-    <div class="container">
-      <div class="hero-content">
-        <h1>Adam Henri</h1>
-        <div class="subtitle">Software Engineer & Web Developer</div>
-        <p class="lead">I build clean, functional, and user-friendly websites for businesses — responsive front-ends, reliable back-ends and smooth deployment.</p>
-        <a class="cta-button" href="#contact">Let's Work Together</a>
-      </div>
-    </div>
-  </section>
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Adam Henri</h1>
+        <div class="subtitle">Software Engineer & Web Developer</div>
+        <p class="lead">I build clean, functional, and user-friendly websites for businesses — responsive front-ends, reliable back-ends and smooth deployment.</p>
+        <a class="cta-button" href="#contact">Let's Work Together</a>
+      </div>
+    </div>
+  </section>
 
----
+  <section id="about" class="about">
+    <div class="container">
+      <h2 class="section-title">About Me</h2>
+      <div class="about-content">
+        <div>
+          <p style="font-size:1.05rem; line-height:1.7; color:var(--text-secondary);">
+            I'm a Software Engineer focused on full-stack web development, database management, and building seamless user experiences. I combine pragmatic engineering with thoughtful design to deliver business-ready websites.
+          </p>
+          <p style="color:var(--text-secondary); margin-top:.8rem;">
+            Quick wins I bring: faster load times, clear conversion paths, mobile-first responsive layouts, and easy-to-manage content for non-technical staff.
+          </p>
+        </div>
+        <div class="credentials">
+          <h3 style="color:var(--text-primary); margin-bottom:1rem; font-size:1.15rem;">Education & Experience</h3>
+          <div class="credential-item">
+            <h3>Software Engineering</h3>
+            <div class="institution">Sunway University</div>
+            <div class="date">Bachelor of Software Engineering (Hons)</div>
+          </div>
+          <div class="credential-item">
+            <h3>Information Technology</h3>
+            <div class="institution">Universiti Kuala Lumpur</div>
+            <div class="date">Diploma in Information Technology (IT)</div>
+            <div class="date">Jun 2022 - Mar 2025</div>
+          </div>
+          <div class="credential-item">
+            <h3>Web Developer</h3>
+            <div class="institution">AE SETIA Sdn. Bhd.</div>
+            <div class="date">Freelance</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <section id="about" class="about">
-    <div class="container">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-content">
-        <div>
-          <p style="font-size:1.05rem; line-height:1.7; color:var(--text-secondary);">
-            I'm a **Software Engineer** focused on full-stack web development, database management, and building seamless user experiences. I combine pragmatic engineering with thoughtful design to deliver business-ready websites.
-          </p>
-          <p style="color:var(--text-secondary); margin-top:.8rem;">
-            Quick wins I bring: **faster load times**, clear conversion paths, **mobile-first responsive layouts**, and easy-to-manage content for non-technical staff.
-          </p>
-        </div>
-        <div class="credentials">
-          <h3 style="color:var(--text-primary); margin-bottom:1rem; font-size:1.15rem;">Education & Experience</h3>
-          <div class="credential-item">
-            <h3>Software Engineering</h3>
-            <div class="institution">Sunway University</div>
-            <div class="date">Bachelor of Software Engineering (Hons)</div>
-          </div>
-          <div class="credential-item">
-            <h3>Information Technology</h3>
-            <div class="institution">Universiti Kuala Lumpur</div>
-            <div class="date">Diploma in Information Technology (IT)</div>
-            <div class="date">Jun 2022 - Mar 2025</div>
-          </div>
-          <div class="credential-item">
-            <h3>Web Developer</h3>
-            <div class="institution">AE SETIA Sdn. Bhd.</div>
-            <div class="date">Freelance</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Services -->
+  <section id="services">
+    <div class="container">
+      <h2 class="section-title">Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h4>Custom Business Websites</h4>
+          <p style="color:var(--text-secondary); font-size:.95rem;">Brochure sites, multi-page corporate sites and landing pages built to convert.</p>
+        </div>
+        <div class="service-card">
+          <h4>Full-Stack Development</h4>
+          <p style="color:var(--text-secondary); font-size:.95rem;">Secure backends, databases, and admin panels using PHP / MySQL or modern stacks.</p>
+        </div>
+        <div class="service-card">
+          <h4>Responsive & Accessibility</h4>
+          <p style="color:var(--text-secondary); font-size:.95rem;">Mobile-first layouts and accessibility best-practices so all users can use your site.</p>
+        </div>
+        <div class="service-card">
+          <h4>Deployment & Maintenance</h4>
+          <p style="color:var(--text-secondary); font-size:.95rem;">Hosting, deployments, backups, and small monthly maintenance plans for peace of mind.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
----
+  <!-- Projects -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2 class="section-title">Selected Projects</h2>
+      <div class="projects-grid">
+        <!-- Project 1 -->
+        <div class="project-card">
+          <div class="project-image" role="img" aria-label="Football Ticketing screenshot">
+            <svg width="60%" height="60%" viewBox="0 0 100 60" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="60" rx="4" fill="#0f0f0f" stroke="#222"/>
+              <text x="50" y="33" font-size="9" fill="#9eeac6" text-anchor="middle">Football Ticketing</text>
+            </svg>
+          </div>
+          <div class="project-content">
+            <h3 style="color:var(--accent); margin-bottom:.25rem;">Football Ticketing System</h3>
+            <div class="project-subtitle" style="color:var(--text-secondary); font-size:.95rem;">Academic Capstone Project</div>
+            <p style="color:var(--text-secondary); margin-top:.6rem;">A ticketing platform with QR-code ticket validation, email notifications, and admin analytics for purchases and login history.</p>
+            <div class="pdf-badge"> 📄 Detailed screenshots available in portfolio PDF </div>
+            <div class="tech-stack">
+              <span class="tech-tag">PHP</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">QR Code</span>
+              <span class="tech-tag">Email</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-secondary" href="FYPSCREENSHOTS.pdf" target="_blank" rel="noopener">📥 View Full Details (PDF)</a>
+            </div>
+          </div>
+        </div>
 
-    <section id="services">
-    <div class="container">
-      <h2 class="section-title">Services</h2>
-      <div class="services-grid">
-        <div class="service-card">
-          <h4>Custom Business Websites</h4>
-          <p style="color:var(--text-secondary); font-size:.95rem;">Brochure sites, multi-page corporate sites and landing pages built to convert.</p>
-        </div>
-        <div class="service-card">
-          <h4>Full-Stack Development</h4>
-          <p style="color:var(--text-secondary); font-size:.95rem;">Secure backends, databases, and admin panels using PHP / MySQL or modern stacks.</p>
-        </div>
-        <div class="service-card">
-          <h4>Responsive & Accessibility</h4>
-          <p style="color:var(--text-secondary); font-size:.95rem;">Mobile-first layouts and accessibility best-practices so all users can use your site.</p>
-        </div>
-        <div class="service-card">
-          <h4>Deployment & Maintenance</h4>
-          <p style="color:var(--text-secondary); font-size:.95rem;">Hosting, deployments, backups, and small monthly maintenance plans for peace of mind.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+        <!-- Project 2 -->
+        <div class="project-card">
+          <div class="project-image" role="img" aria-label="AE Setia screenshot">
+            <svg width="60%" height="60%" viewBox="0 0 100 60" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="60" rx="4" fill="#0f0f0f" stroke="#222"/>
+              <text x="50" y="33" font-size="9" fill="#9eeac6" text-anchor="middle">AE SETIA Website</text>
+            </svg>
+          </div>
+          <div class="project-content">
+            <h3 style="color:var(--accent); margin-bottom:.25rem;">AE SETIA Company Website</h3>
+            <div class="project-subtitle" style="color:var(--text-secondary); font-size:.95rem;">Freelance Project</div>
+            <p style="color:var(--text-secondary); margin-top:.6rem;">Multi-page corporate site showcasing company profile and services. Developed with PHP, MySQL and a simple CMS for content edits.</p>
+            <div class="pdf-badge"> 📄 Detailed screenshots available in portfolio PDF </div>
+            <div class="tech-stack">
+              <span class="tech-tag">PHP</span>
+              <span class="tech-tag">MySQL</span>
+              <span class="tech-tag">Responsive</span>
+            </div>
+            <div class="project-actions">
+              <a class="btn btn-secondary" href="AESETIASCREENSHOTS.pdf" target="_blank" rel="noopener">📥 View Full Details (PDF)</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
----
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <h2 class="section-title">Testimonials</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial">
+          <div style="font-style:italic; color:var(--text-secondary);">"Adam delivered our company site on time — clean, reliable and easy for our staff to update. Communication was clear throughout."</div>
+          <div class="meta">— Sir Zulhelmi, AE SETIA (Client)</div>
+        </div>
+        <div class="testimonial">
+          <div style="font-style:italic; color:var(--text-secondary);">"Great work on the ticketing system. Robust QR integration and emails worked perfectly on launch day."</div>
+          <div class="meta">— Nor Azlina Ali (Ts), University Project Supervisor</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <section id="projects" class="projects">
-    <div class="container">
-      <h2 class="section-title">Selected Projects</h2>
-      <div class="projects-grid">
-                <div class="project-card">
-          <div class="project-image" role="img" aria-label="Football Ticketing screenshot">
-            <svg width="60%" height="60%" viewBox="0 0 100 60" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100" height="60" rx="4" fill="#0f0f0f" stroke="#222"/>
-              <text x="50" y="33" font-size="9" fill="#9eeac6" text-anchor="middle">Football Ticketing</text>
-            </svg>
-          </div>
-          <div class="project-content">
-            <h3 style="color:var(--accent); margin-bottom:.25rem;">Football Ticketing System</h3>
-            <div class="project-subtitle" style="color:var(--text-secondary); font-size:.95rem;">Academic Capstone Project</div>
-            <p style="color:var(--text-secondary); margin-top:.6rem;">A ticketing platform with QR-code ticket validation, email notifications, and admin analytics for purchases and login history.</p>
-            <div class="pdf-badge"> 📄 Detailed screenshots available in portfolio PDF </div>
-            <div class="tech-stack">
-              <span class="tech-tag">PHP</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">QR Code</span>
-              <span class="tech-tag">Email</span>
-            </div>
-            <div class="project-actions">
-              <a class="btn btn-secondary" href="FYPSCREENSHOTS.pdf" target="_blank" rel="noopener">📥 View Full Details (PDF)</a>
-            </div>
-          </div>
-        </div>
+  <!-- Contact -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2 class="section-title">Let's Work Together</h2>
+      <div class="contact-content">
+        <p style="font-size:1.05rem; color:var(--text-secondary); margin-bottom:1rem;">
+          I'm open to discuss projects, scopes and timelines. Typical packages start from simple brochure sites to full-stack systems.
+        </p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <h3 style="color:var(--accent); margin-bottom:.5rem;">Email</h3>
+            <a href="mailto:adamhenri21@gmail.com">adamhenri21@gmail.com</a>
+          </div>
+          <div class="contact-item">
+            <h3 style="color:var(--accent); margin-bottom:.5rem;">Phone</h3>
+            <a href="https://wa.me/60173441072" target="_blank">WhatsApp Me</a>
+          </div>
+          <div class="contact-item">
+            <h3 style="color:var(--accent); margin-bottom:.5rem;">Location</h3>
+            <p style="color:var(--text-primary);">Hartamas Regency 2, Jln Duta Hartamas<br>Mont Kiara, 50480 Kuala Lumpur</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-                <div class="project-card">
-          <div class="project-image" role="img" aria-label="AE Setia screenshot">
-            <svg width="60%" height="60%" viewBox="0 0 100 60" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
-              <rect width="100" height="60" rx="4" fill="#0f0f0f" stroke="#222"/>
-              <text x="50" y="33" font-size="9" fill="#9eeac6" text-anchor="middle">AE SETIA Website</text>
-            </svg>
-          </div>
-          <div class="project-content">
-            <h3 style="color:var(--accent); margin-bottom:.25rem;">AE SETIA Company Website</h3>
-            <div class="project-subtitle" style="color:var(--text-secondary); font-size:.95rem;">Freelance Project</div>
-            <p style="color:var(--text-secondary); margin-top:.6rem;">Multi-page corporate site showcasing company profile and services. Developed with PHP, MySQL and a simple CMS for content edits.</p>
-            <div class="pdf-badge"> 📄 Detailed screenshots available in portfolio PDF </div>
-            <div class="tech-stack">
-              <span class="tech-tag">PHP</span>
-              <span class="tech-tag">MySQL</span>
-              <span class="tech-tag">Responsive</span>
-            </div>
-            <div class="project-actions">
-              <a class="btn btn-secondary" href="AESETIASCREENSHOTS.pdf" target="_blank" rel="noopener">📥 View Full Details (PDF)</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
----
-
-    <section id="testimonials">
-    <div class="container">
-      <h2 class="section-title">Testimonials</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial">
-          <div style="font-style:italic; color:var(--text-secondary);">"Adam delivered our company site on time — clean, reliable and easy for our staff to update. Communication was clear throughout."</div>
-          <div class="meta">— Sir Zulhelmi, AE SETIA (Client)</div>
-        </div>
-        <div class="testimonial">
-          <div style="font-style:italic; color:var(--text-secondary);">"Great work on the ticketing system. Robust QR integration and emails worked perfectly on launch day."</div>
-          <div class="meta">— Nor Azlina Ali (Ts), University Project Supervisor</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
----
-
-    <section id="contact" class="contact">
-    <div class="container">
-      <h2 class="section-title">Let's Work Together</h2>
-      <div class="contact-content">
-        <p style="font-size:1.05rem; color:var(--text-secondary); margin-bottom:1rem;">
-          I'm open to discuss projects, scopes and timelines. Typical packages start from simple brochure sites to full-stack systems.
-        </p>
-        <div class="contact-info">
-          <div class="contact-item">
-            <h3 style="color:var(--accent); margin-bottom:.5rem;">Email</h3>
-            <a href="mailto:adamhenri21@gmail.com" style="color:var(--text-primary); text-decoration:none;">adamhenri21@gmail.com</a>
-          </div>
-          <div class="contact-item">
-            <h3 style="color:var(--accent); margin-bottom:.5rem;">Phone</h3>
-            <a href="https://wa.me/60173441072" target="_blank" style="color:var(--text-primary); text-decoration:none;">WhatsApp Me</a>
-          </div>
-          <div class="contact-item">
-            <h3 style="color:var(--accent); margin-bottom:.5rem;">Location</h3>
-            <p style="color:var(--text-primary);">Hartamas Regency 2, Jln Duta Hartamas<br>Mont Kiara, 50480 Kuala Lumpur</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
----
-
-  <footer>
-    <div class="container">
-      <p>&copy; 2025 Adam Henri. All rights reserved.</p>
-    </div>
-  </footer>
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Adam Henri. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
+
 
 		
